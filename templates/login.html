@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load url from future %}
+
+{% block css %}
+<style>
+	#login-form {
+		position: absolute;
+		top: 40%;
+		bottom: 0;
+		left: 40%;
+		right: 0;
+		margin: auto;
+	}
+</style>
+{% endblock %}
+
+{% block navbar %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="alert fade in hide" id="login_error_alert">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Warning!</strong> Invalid username or password.
+</div>
+
+<div class="login_form">
+	<form class="form-inline" id="login-form" action="login_user" method="post">
+	{% csrf_token %}
+	  <input type="text" class="input-small" name="username" placeholder="Username">
+	  <input type="password" class="input-small" name="password" placeholder="Password">
+	  <input type="submit" value="Login" class="btn"/>
+  	<input type="hidden" name="next" value="/" />
+	</form>
+</div>
+
+
+{% endblock %}
+
+{% block scripting %}
+<script>
+  $(document).ready(function(){
+  {% if login_error %}
+    $('#login_error_alert').show();
+  {% endif %}
+  });
+</script>
+{% endblock %}
+
+
